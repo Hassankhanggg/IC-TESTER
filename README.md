@@ -23,3 +23,4 @@ You can mail me if any problem occur
 given .ino if the arduino file 
 above .pdsprj is the protues file
 above .hex file is use for the arduino in proteus 
+circuit diagram is given iin screenshot given above you can change the pins by changing a little bit in code
