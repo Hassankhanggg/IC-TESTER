@@ -1,25 +1,25 @@
 #include <lcd.h>
 #include "Nokia_5110.h"
-const int pin0 = 7;   //naming pins foe ease
-const int pin1 = 6;
-const int pin2 = 5;
-const int pin3 = 4;
-const int pin4 = 3;
-const int pin5 = 2;
-const int pin6 = 30;
-const int pin7 = 28;
-const int pin8 = 26;
-const int pin9 = 36;
-const int pin10 = 34;
-const int pin11 = 32;
-const int pin12 = 1;//gnd
-const int pin13 = 48;//vcc
-const int pin14 = 40;//
-const int pin15 = 0;//
-const int pin16 = A10;//
-const int pin17 = A9;//
-const int pin18 = A8;//
-//const int pin19 = 24;//
+//naming pins foe ease
+const int pin_1 = 7;//ic pin   1      0//previosuly used pins name
+const int pin_2 = 6;//ic pin   2       1
+const int pin_3 = 5;//ic pin   3       2
+const int pin_4 = 4;//ic pin   4       3
+const int pin_5 = 3;//ic pin   5       4
+const int pin_6 = 2;//ic pin   6       5
+const int pin_7 = 1;//ic pin  7        12
+const int pin_8 = 0;//ic pin  8        15
+const int pin_9 = 34;//ic pin 9        14
+const int pin_10 = 32;//ic pin  10     8 = preveios pin name   26 =previous pin
+const int pin_11 = 30;//ic pin  11     7          28
+const int pin_12 = 28;//ic pin  12     6          30
+const int pin_13 = 26;//ic pin 13      11         32
+const int pin_14 = 24;//ic pin 14      10         34
+const int pin_15 = 22;//ic pin  15     9          36
+const int pin_16 = 36;//vcc    16      13         48 or directly attach it to vcc+5v
+const int pin_lcd1 = A10;// lcd        16
+const int pin_lcd2 = A9;// lcd         17
+const int pin_lcd3 = A8;// lcd         18
 
 nokia_lcd my(A15, A14, A13, A12, A11);   //lcd decleration (rst, ce, dc, din, clk)
 Nokia_5110 lcd = Nokia_5110(A15, A14, A13, A12, A11);//sck-clk9 mosi-din8 dc10 cs12 rst=11
@@ -42,77 +42,77 @@ int gate_2=0;
 int gate_3=0;
 int gate_4=0;
 //..........gate 1 for nand......................................................
-digitalWrite(pin0,HIGH);
-digitalWrite(pin1,HIGH);
-if(digitalRead(pin2)==LOW){gate_1++;i++;}
- digitalWrite(pin0,HIGH);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin2)==HIGH){gate_1++;i++;}
- digitalWrite(pin0,LOW);
- digitalWrite(pin1,HIGH);
-if(digitalRead(pin2)==HIGH){gate_1++;i++;}
- digitalWrite(pin0,LOW);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin2)==HIGH){gate_1++;i++;}
-if(ifnand&&(gate_1>2)){lcd.print("NAND gate 1-WORKING");delay(1000);lcd.clear();}
+digitalWrite(pin_1,HIGH);
+digitalWrite(pin_2,HIGH);
+if(digitalRead(pin_3)==LOW){gate_1++;i++;}
+ digitalWrite(pin_1,HIGH);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_3)==HIGH){gate_1++;i++;}
+ digitalWrite(pin_1,LOW);
+ digitalWrite(pin_2,HIGH);
+if(digitalRead(pin_3)==HIGH){gate_1++;i++;}
+ digitalWrite(pin_1,LOW);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_3)==HIGH){gate_1++;i++;}
+if(ifnand&&(gate_1>3)){lcd.print("NAND gate 1-WORKING");delay(1000);lcd.clear();}
 else 
-if(ifnand){lcd.print("NAND gate 1-not WORKING");delay(2000);lcd.clear();}
+if(ifnand){lcd.print("NAND gate 1-not WORKING");delay(1000);lcd.clear();}
 
 //............NAND GATE 2.................
 
-digitalWrite(pin3,HIGH);
- digitalWrite(pin4,HIGH);
-if(digitalRead(pin5)==LOW){gate_2++;i++;}
-digitalWrite(pin3,HIGH);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin5)==HIGH){gate_2++;i++;}
-digitalWrite(pin3,LOW);
- digitalWrite(pin4,HIGH);
-if(digitalRead(pin5)==HIGH){gate_2++;i++;}
-digitalWrite(pin3,LOW);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin5)==HIGH){gate_2++;i++;}
-if(ifnand&&(gate_2>2)){lcd.print("NAND gate 2-WORKING");delay(2000);lcd.clear();}
+digitalWrite(pin_4,HIGH);
+ digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_6)==LOW){gate_2++;i++;}
+digitalWrite(pin_4,HIGH);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_6)==HIGH){gate_2++;i++;}
+digitalWrite(pin_4,LOW);
+ digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_6)==HIGH){gate_2++;i++;}
+digitalWrite(pin_4,LOW);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_6)==HIGH){gate_2++;i++;}
+if(ifnand&&(gate_2>3)){lcd.print("NAND gate 2-WORKING");delay(1000);lcd.clear();}
 else 
-if(ifnand){lcd.print("NAND gate 2-not WORKING");delay(2000);lcd.clear();}
+if(ifnand){lcd.print("NAND gate 2-not WORKING");delay(1000);lcd.clear();}
 
 
 //............NAND GATE THREE..............
 
- digitalWrite(pin6,HIGH);
- digitalWrite(pin7,HIGH);
-if(digitalRead(pin8)==LOW){gate_3++;i++;}
- digitalWrite(pin6,LOW);
- digitalWrite(pin7,HIGH);
-if(digitalRead(pin8)==HIGH){gate_3++;i++;}
- digitalWrite(pin6,HIGH);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin8)==HIGH){gate_3++;i++;}
- digitalWrite(pin6,LOW);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin8)==HIGH ){gate_3++;i++;}
-if(ifnand&&(gate_3>2)){lcd.print("NAND gate 3-WORKING");delay(2000);lcd.clear();}}
+ digitalWrite(pin_12,HIGH);
+ digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_10)==LOW){gate_3++;i++;}
+ digitalWrite(pin_12,LOW);
+ digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_10)==HIGH){gate_3++;i++;}
+ digitalWrite(pin_12,HIGH);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_10)==HIGH){gate_3++;i++;}
+ digitalWrite(pin_12,LOW);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_10)==HIGH ){gate_3++;i++;}
+if(ifnand&&(gate_3>3)){lcd.print("NAND gate 3-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifnand){lcd.print("NAND gate 3-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifnand){lcd.print("NAND gate 3-not WORKING");delay(1000);lcd.clear();}}
 
 //...................NAND GATE 4.............
-digitalWrite(pin9,HIGH);
- digitalWrite(pin10,HIGH);
-if(digitalRead(pin11)==LOW){gate_4++;i++;}
- digitalWrite(pin9,HIGH);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin11)==HIGH){gate_4++;i++;}
-digitalWrite(pin9,LOW);
-digitalWrite(pin10,HIGH);
-if(digitalRead(pin11)==HIGH){gate_4++;i++;}
-digitalWrite(pin9,LOW);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin11)==HIGH ){gate_4++;i++;}
-if(ifnand&&(gate_4>2)){lcd.print("nand gate 4-WORKING");delay(2000);lcd.clear();}}
+digitalWrite(pin_15,HIGH);
+ digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_13)==LOW){gate_4++;i++;}
+ digitalWrite(pin_15,HIGH);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_13)==HIGH){gate_4++;i++;}
+digitalWrite(pin_15,LOW);
+digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_13)==HIGH){gate_4++;i++;}
+digitalWrite(pin_15,LOW);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_13)==HIGH ){gate_4++;i++;}
+if(ifnand&&(gate_4>3)){lcd.print("nand gate 4-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifnand){lcd.print("NAND gate 4-not WORKING");delay(2000);lcd.clear();}}
-if(i>=12){chknand=1;}
-else if (i<11){chknand=0;}
+{ if(ifnand){lcd.print("NAND gate 4-not WORKING");delay(1000);lcd.clear();}}
+if((i>7)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chknand=1;}
+else if (i<6){chknand=0;}
 }
 
 // .................or GATE ................
@@ -124,92 +124,92 @@ int gate_2=0;
 int gate_3=0;
 int gate_4=0;
 //..........gate 1 for or......................................................
-digitalWrite(pin0,HIGH);
-digitalWrite(pin1,HIGH);
-if(digitalRead(pin2)==HIGH){gate_1++;i++;}
- digitalWrite(pin0,HIGH);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin2)==HIGH){gate_1++;i++;}
- digitalWrite(pin0,LOW);
- digitalWrite(pin1,HIGH);
-if(digitalRead(pin2)==HIGH){gate_1++;i++;}
+digitalWrite(pin_1,HIGH);
+digitalWrite(pin_2,HIGH);
+if(digitalRead(pin_3)==HIGH){gate_1++;i++;}
+ digitalWrite(pin_1,HIGH);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_3)==HIGH){gate_1++;i++;}
+ digitalWrite(pin_1,LOW);
+ digitalWrite(pin_2,HIGH);
+if(digitalRead(pin_3)==HIGH){gate_1++;i++;}
 
-pinMode(pin0,OUTPUT);//define for avoiding error 
-pinMode(pin1,OUTPUT);
-pinMode(pin2,INPUT);
- digitalWrite(pin0,LOW);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin2)==LOW ){gate_1++;i++;}
-if(ifor&&(gate_1>2)){lcd.print("OR gate 1-WORKING");delay(1000);lcd.clear();}
+pinMode(pin_1,OUTPUT);//define for avoiding error 
+pinMode(pin_2,OUTPUT);
+pinMode(pin_3,INPUT);
+ digitalWrite(pin_1,LOW);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_3)==LOW ){gate_1++;i++;}
+if(ifor&&(gate_1>3)){lcd.print("OR gate 1-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifor){lcd.print("OR gate 1-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifor){lcd.print("OR gate 1-not WORKING");delay(1000);lcd.clear();}}
 
 //............or GATE 2.................
 
-digitalWrite(pin3,HIGH);
- digitalWrite(pin4,HIGH);
-if(digitalRead(pin5)==HIGH){gate_2++;i++;}
-digitalWrite(pin3,HIGH);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin5)==HIGH){gate_2++;i++;}
-digitalWrite(pin3,LOW);
- digitalWrite(pin4,HIGH);
-if(digitalRead(pin5)==HIGH){gate_2++;i++;}
+digitalWrite(pin_4,HIGH);
+ digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_6)==HIGH){gate_2++;i++;}
+digitalWrite(pin_4,HIGH);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_6)==HIGH){gate_2++;i++;}
+digitalWrite(pin_4,LOW);
+ digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_6)==HIGH){gate_2++;i++;}
  
-pinMode(pin3,OUTPUT);//define for avoiding error 
-pinMode(pin4,OUTPUT);
-pinMode(pin5,INPUT);
-digitalWrite(pin3,LOW);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin5)==LOW ){gate_2++;i++;}
-if(ifor&&(gate_2>2)){lcd.print("OR gate 2-WORKING");delay(2000);lcd.clear();}
+pinMode(pin_4,OUTPUT);//define for avoiding error 
+pinMode(pin_5,OUTPUT);
+pinMode(pin_6,INPUT);
+digitalWrite(pin_4,LOW);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_6)==LOW ){gate_2++;i++;}
+if(ifor&&(gate_2>3)){lcd.print("OR gate 2-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifor){lcd.print("OR gate 2-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifor){lcd.print("OR gate 2-not WORKING");delay(1000);lcd.clear();}}
 
 
 //............or GATE THREE..............
 
- digitalWrite(pin6,HIGH);
- digitalWrite(pin7,HIGH);
-if(digitalRead(pin8)==HIGH){gate_3++;i++;}
- digitalWrite(pin6,LOW);
- digitalWrite(pin7,HIGH);
-if(digitalRead(pin8)==HIGH){gate_3++;i++;}
- digitalWrite(pin6,HIGH);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin8)==HIGH){gate_3++;i++;}
+ digitalWrite(pin_12,HIGH);
+ digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_10)==HIGH){gate_3++;i++;}
+ digitalWrite(pin_12,LOW);
+ digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_10)==HIGH){gate_3++;i++;}
+ digitalWrite(pin_12,HIGH);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_10)==HIGH){gate_3++;i++;}
  
-pinMode(pin6,OUTPUT);//define for avoiding error 
-pinMode(pin7,OUTPUT);
-pinMode(pin8,INPUT);
- digitalWrite(pin6,LOW);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin8)==LOW ){gate_3++;i++;}
-;if(ifor&&(gate_3>2)){lcd.print("OR gate 3-WORKING");delay(2000);lcd.clear();}
+pinMode(pin_12,OUTPUT);//define for avoiding error 
+pinMode(pin_11,OUTPUT);
+pinMode(pin_10,INPUT);
+ digitalWrite(pin_12,LOW);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_10)==LOW ){gate_3++;i++;}
+;if(ifor&&(gate_3>3)){lcd.print("OR gate 3-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifor){lcd.print("OR gate 3-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifor){lcd.print("OR gate 3-not WORKING");delay(1000);lcd.clear();}}
 
 //...................or GATE 4.............
-digitalWrite(pin9,HIGH);
- digitalWrite(pin10,HIGH);
-if(digitalRead(pin11)==HIGH){gate_4++;i++;}
- digitalWrite(pin9,HIGH);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin11)==HIGH){gate_4++;i++;}
-digitalWrite(pin9,LOW);
-digitalWrite(pin10,HIGH);
-if(digitalRead(pin11)==HIGH){gate_4++;i++;}
-pinMode(pin9,OUTPUT);//define for avoiding error 
-pinMode(pin10,OUTPUT);
-pinMode(pin11,INPUT);
-digitalWrite(pin9,LOW);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin11)==LOW ){gate_4++;i++;}
-if(ifor&&(gate_4>2)){lcd.print("OR gate 4-WORKING");delay(2000);lcd.clear();}
+digitalWrite(pin_15,HIGH);
+ digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_13)==HIGH){gate_4++;i++;}
+ digitalWrite(pin_15,HIGH);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_13)==HIGH){gate_4++;i++;}
+digitalWrite(pin_15,LOW);
+digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_13)==HIGH){gate_4++;i++;}
+pinMode(pin_15,OUTPUT);//define for avoiding error 
+pinMode(pin_14,OUTPUT);
+pinMode(pin_13,INPUT);
+digitalWrite(pin_15,LOW);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_13)==LOW ){gate_4++;i++;}
+if(ifor&&(gate_4>3)){lcd.print("OR gate 4-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifor){lcd.print("OR gate 4-not WORKING");delay(2000);lcd.clear();}}
-if(i>=11){chkor=1;}
-else if (i<10){chkor=0;}
+{ if(ifor){lcd.print("OR gate 4-not WORKING");delay(1000);lcd.clear();}}
+if((i>3)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chkor=1;}
+else if (i<=2){chkor=0;}
 }
 
 // .................AND GATE 1................
@@ -223,78 +223,78 @@ int gate_2=0;
 int gate_3=0;
 int gate_4=0;
 //..........gate 1 for and......................................................
-digitalWrite(pin0,HIGH);
-digitalWrite(pin1,HIGH);
-if(digitalRead(pin2)==HIGH){gate_1++;i++;}
+digitalWrite(pin_1,HIGH);
+digitalWrite(pin_2,HIGH);
+if(digitalRead(pin_3)==HIGH){gate_1++;i++;}
 
- digitalWrite(pin0,HIGH);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin2)==LOW){gate_1++;i++;}
- digitalWrite(pin0,LOW);
- digitalWrite(pin1,HIGH);
-if(digitalRead(pin2)==LOW){gate_1++;i++;}
- digitalWrite(pin0,LOW);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin2)==LOW){gate_1++;i++;}
-if(ifand&&(gate_1>2)){lcd.print("AND gate 1-WORKING");delay(1000);lcd.clear();}}}
+ digitalWrite(pin_1,HIGH);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_3)==LOW){gate_1++;i++;}
+ digitalWrite(pin_1,LOW);
+ digitalWrite(pin_2,HIGH);
+if(digitalRead(pin_3)==LOW){gate_1++;i++;}
+ digitalWrite(pin_1,LOW);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_3)==LOW){gate_1++;i++;}
+if(ifand&&(gate_1>3)){lcd.print("AND gate 1-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifand){lcd.print("AND gate 1-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifand){lcd.print("AND gate 1-not WORKING");delay(1000);lcd.clear();}}
 
 //............and GATE 2.................
 
-digitalWrite(pin3,HIGH);
- digitalWrite(pin4,HIGH);
-if(digitalRead(pin5)==HIGH){gate_2++;i++;}
-digitalWrite(pin3,HIGH);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin5)==LOW){gate_2++;i++;}
-digitalWrite(pin3,LOW);
- digitalWrite(pin4,HIGH);
-if(digitalRead(pin5)==LOW){gate_2++;i++;}
-digitalWrite(pin3,LOW);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin5)==LOW){gate_2++;i++;}
-if(ifand&&(gate_2>2){lcd.print("AND gate 2-WORKING");delay(2000);lcd.clear();}}}
+digitalWrite(pin_4,HIGH);
+ digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_6)==HIGH){gate_2++;i++;}
+digitalWrite(pin_4,HIGH);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_6)==LOW){gate_2++;i++;}
+digitalWrite(pin_4,LOW);
+ digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_6)==LOW){gate_2++;i++;}
+digitalWrite(pin_4,LOW);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_6)==LOW){gate_2++;i++;}
+if(ifand&&(gate_2>3)){lcd.print("AND gate 2-WORKING");delay(1000);lcd.clear();}
 else 
 { if(ifand){lcd.print("AND gate 2-not WORKING");delay(2000);lcd.clear();}}
 
 
 //............and GATE THREE..............
 
- digitalWrite(pin6,HIGH);
- digitalWrite(pin7,HIGH);
-if(digitalRead(pin8)==HIGH){gate_3++;i++;}
- digitalWrite(pin6,HIGH);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin8)==LOW){gate_3++;i++;}
- digitalWrite(pin6,LOW);
- digitalWrite(pin7,HIGH);
-if(digitalRead(pin8)==LOW){gate_3++;i++;}
- digitalWrite(pin6,LOW);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin8)==LOW){gate_3++;i++;}
-if(ifand&&(gate_3>2){lcd.print("AND gate 3-WORKING");delay(2000);lcd.clear();}}}
+ digitalWrite(pin_12,HIGH);
+ digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_10)==HIGH){gate_3++;i++;}
+ digitalWrite(pin_12,HIGH);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_10)==LOW){gate_3++;i++;}
+ digitalWrite(pin_12,LOW);
+ digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_10)==LOW){gate_3++;i++;}
+ digitalWrite(pin_12,LOW);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_10)==LOW){gate_3++;i++;}
+if(ifand&&(gate_3>3)){lcd.print("AND gate 3-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifand){lcd.print("AND gate 3-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifand){lcd.print("AND gate 3-not WORKING");delay(1000);lcd.clear();}}
 
 //...................AND GATE 4.............
-digitalWrite(pin9,HIGH);
- digitalWrite(pin10,HIGH);
-if(digitalRead(pin11)==HIGH){gate_4++;i++;}
- digitalWrite(pin9,HIGH);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin11)==LOW){gate_4++;i++;}
-digitalWrite(pin9,LOW);
-digitalWrite(pin10,HIGH);
-if(digitalRead(pin11)==LOW){gate_4++;i++;}
-digitalWrite(pin9,LOW);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin11)==LOW){gate_4++;i++;}
-if(ifand&&(gate_4>2){lcd.print("and gate 4-WORKING");delay(2000);lcd.clear();}}}
+digitalWrite(pin_15,HIGH);
+ digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_13)==HIGH){gate_4++;i++;}
+ digitalWrite(pin_15,HIGH);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_13)==LOW){gate_4++;i++;}
+digitalWrite(pin_15,LOW);
+digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_13)==LOW){gate_4++;i++;}
+digitalWrite(pin_15,LOW);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_13)==LOW){gate_4++;i++;}
+if(ifand&&(gate_4>3)){lcd.print("and gate 4-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifand){lcd.print("AND gate 4-not WORKING");delay(2000);lcd.clear();}}
-if(i>=12){chkand=1;}
-else if (i<11){chkand=0;}
+{ if(ifand){lcd.print("AND gate 4-not WORKING");delay(1000);lcd.clear();}}
+if((i>=4)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chkand=1;}
+else if (i<3){chkand=0;}
 }
 
 
@@ -309,94 +309,94 @@ int gate_2=0;
 int gate_3=0;
 int gate_4=0;
 //..........gate 1 for XOR......................................................
-digitalWrite(pin0,HIGH);
-digitalWrite(pin1,HIGH);
-if(digitalRead(pin2)==LOW){gate_1++;i++;}
- digitalWrite(pin0,HIGH);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin2)==HIGH){gate_1++;i++;}
- digitalWrite(pin0,LOW);
- digitalWrite(pin1,HIGH);
-if(digitalRead(pin2)==HIGH){gate_1++;i++;}
- digitalWrite(pin0,LOW);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin2)==LOW ){gate_1++;i++;}
+digitalWrite(pin_1,HIGH);
+digitalWrite(pin_2,HIGH);
+if(digitalRead(pin_3)==LOW){gate_1++;i++;}
+ digitalWrite(pin_1,HIGH);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_3)==HIGH){gate_1++;i++;}
+ digitalWrite(pin_1,LOW);
+ digitalWrite(pin_2,HIGH);
+if(digitalRead(pin_3)==HIGH){gate_1++;i++;}
+ digitalWrite(pin_1,LOW);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_3)==LOW ){gate_1++;i++;}
 if(ifxor&&(gate_1>2)){lcd.print("XOR gate 1-WORKING");delay(1000);lcd.clear();}
 else 
-{if(ifxor){lcd.print("XOR gate 1-not WORKING");delay(2000);lcd.clear();}}
+{if(ifxor){lcd.print("XOR gate 1-not WORKING");delay(1000);lcd.clear();}}
 
 //............XOR GATE 2.................
 
-digitalWrite(pin3,HIGH);
- digitalWrite(pin4,HIGH);
-if(digitalRead(pin5)==LOW){gate_2++;i++;}
-digitalWrite(pin3,HIGH);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin5)==HIGH){gate_2++;i++;}
-digitalWrite(pin3,LOW);
- digitalWrite(pin4,HIGH);
-if(digitalRead(pin5)==HIGH){gate_2++;i++;}
-digitalWrite(pin3,LOW);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin5)==LOW ){gate_2++;i++;}
-if(ifxor&&(gate_2>2)){lcd.print("XOR gate 2-WORKING");delay(2000);lcd.clear();}
+digitalWrite(pin_4,HIGH);
+ digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_6)==LOW){gate_2++;i++;}
+digitalWrite(pin_4,HIGH);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_6)==HIGH){gate_2++;i++;}
+digitalWrite(pin_4,LOW);
+ digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_6)==HIGH){gate_2++;i++;}
+digitalWrite(pin_4,LOW);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_6)==LOW ){gate_2++;i++;}
+if(ifxor&&(gate_2>2)){lcd.print("XOR gate 2-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifxor){lcd.print("XOR gate 2-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifxor){lcd.print("XOR gate 2-not WORKING");delay(1000);lcd.clear();}}
 
 
 //............XOR GATE THREE..............
 
- digitalWrite(pin6,HIGH);
- digitalWrite(pin7,HIGH);
-if(digitalRead(pin8)==LOW){gate_3++;i++;}
- digitalWrite(pin6,HIGH);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin8)==HIGH){gate_3++;i++;}
- digitalWrite(pin6,LOW);
- digitalWrite(pin7,HIGH);
-if(digitalRead(pin8)==HIGH){gate_3++;i++;}
- digitalWrite(pin6,LOW);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin8)==LOW ){gate_3++;i++;}
-if(ifxor&&(gate_3>2)){lcd.print("XOR gate 3-WORKING");delay(2000);lcd.clear();}
+ digitalWrite(pin_12,HIGH);
+ digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_10)==LOW){gate_3++;i++;}
+ digitalWrite(pin_12,HIGH);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_10)==HIGH){gate_3++;i++;}
+ digitalWrite(pin_12,LOW);
+ digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_10)==HIGH){gate_3++;i++;}
+ digitalWrite(pin_12,LOW);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_10)==LOW ){gate_3++;i++;}
+if(ifxor&&(gate_3>2)){lcd.print("XOR gate 3-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifxor){lcd.print("XOR gate 3-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifxor){lcd.print("XOR gate 3-not WORKING");delay(1000);lcd.clear();}}
 
 //...................XOR GATE 4.............
-digitalWrite(pin9,HIGH);
- digitalWrite(pin10,HIGH);
-if(digitalRead(pin11)==LOW){gate_4++;i++;}
- digitalWrite(pin9,HIGH);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin11)==HIGH){gate_4++;i++;}
-digitalWrite(pin9,LOW);
-digitalWrite(pin10,HIGH);
-if(digitalRead(pin11)==HIGH){gate_4++;i++;}
-digitalWrite(pin9,LOW);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin11)==LOW ){gate_4++;i++;}
-if(ifxor&&(gate_4>2)){lcd.print("XOR gate 4-WORKING");delay(2000);lcd.clear();}
+digitalWrite(pin_15,HIGH);
+ digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_13)==LOW){gate_4++;i++;}
+ digitalWrite(pin_15,HIGH);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_13)==HIGH){gate_4++;i++;}
+digitalWrite(pin_15,LOW);
+digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_13)==HIGH){gate_4++;i++;}
+digitalWrite(pin_15,LOW);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_13)==LOW ){gate_4++;i++;}
+if(ifxor&&(gate_4>2)){lcd.print("XOR gate 4-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifxor){lcd.print("XOR gate 4-not WORKING");delay(2000);lcd.clear();}}
-if(i>=12){chkxor=1;}
-else if (i<11){chkxor=0;}
+{ if(ifxor){lcd.print("XOR gate 4-not WORKING");delay(1000);lcd.clear();}}
+if((i>=8)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chkxor=1;}
+else if (i<7){chkxor=0;}
 }
 
 
 // .................nor GATE 1................
 bool norfunc (int ifnor){
-pinMode(pin0,INPUT);
-pinMode(pin1,OUTPUT);
-pinMode(pin2,OUTPUT);
-pinMode(pin3,INPUT);
-pinMode(pin4,OUTPUT);
-pinMode(pin5,OUTPUT);
-pinMode(pin6,INPUT);
-pinMode(pin7,OUTPUT);
-pinMode(pin8,OUTPUT);
-pinMode(pin9,INPUT);
-pinMode(pin10,OUTPUT);
-pinMode(pin11,OUTPUT);
+pinMode(pin_1,INPUT);
+pinMode(pin_2,OUTPUT);
+pinMode(pin_3,OUTPUT);
+pinMode(pin_4,INPUT);
+pinMode(pin_5,OUTPUT);
+pinMode(pin_6,OUTPUT);
+pinMode(pin_12,INPUT);
+pinMode(pin_11,OUTPUT);
+pinMode(pin_10,OUTPUT);
+pinMode(pin_15,INPUT);
+pinMode(pin_14,OUTPUT);
+pinMode(pin_13,OUTPUT);
 //lcd.print("matching with nor");delay(1000);lcd.clear();
 int i=0;
 int gate_1=0;
@@ -404,95 +404,95 @@ int gate_2=0;
 int gate_3=0;
 int gate_4=0;
 //..........gate 1 for nor......................................................
-digitalWrite(pin2,HIGH);
-digitalWrite(pin1,HIGH);
-if(digitalRead(pin0)==LOW){gate_1++;i++;}
- digitalWrite(pin2,HIGH);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin0)==LOW){gate_1++;i++;}
- digitalWrite(pin2,LOW);
- digitalWrite(pin1,HIGH);
-if(digitalRead(pin0)==LOW){gate_1++;i++;}
- digitalWrite(pin2,LOW);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin0)==HIGH && (gate_1>2))
-{i++; if(ifnor){lcd.print("NOR gate 1-WORKING");delay(1000);lcd.clear();}}
+digitalWrite(pin_3,HIGH);
+digitalWrite(pin_2,HIGH);
+if(digitalRead(pin_1)==LOW){gate_1++;i++;}
+ digitalWrite(pin_3,HIGH);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_1)==LOW){gate_1++;i++;}
+ digitalWrite(pin_3,LOW);
+ digitalWrite(pin_2,HIGH);
+if(digitalRead(pin_1)==LOW){gate_1++;i++;}
+ digitalWrite(pin_3,LOW);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_1)==HIGH ){gate_1++;i++;}
+if(ifnor&&(gate_1>2)){lcd.print("NOR gate 1-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifnor){lcd.print("NOR gate 1-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifnor){lcd.print("NOR gate 1-not WORKING");delay(1000);lcd.clear();}}
 
 //............nor GATE 2.................
 
-digitalWrite(pin5,HIGH);
- digitalWrite(pin4,HIGH);
-if(digitalRead(pin3)==LOW){gate_2++;i++;}
-digitalWrite(pin5,HIGH);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin3)==LOW){gate_2++;i++;}
-digitalWrite(pin5,LOW);
- digitalWrite(pin4,HIGH);
-if(digitalRead(pin3)==LOW){gate_2++;i++;}
-digitalWrite(pin5,LOW);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin3)==HIGH && (gate_2>2))
-{ i++;if(ifnor){lcd.print("NOR gate 2-WORKING");delay(2000);lcd.clear();}}
+digitalWrite(pin_6,HIGH);
+ digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_4)==LOW){gate_2++;i++;}
+digitalWrite(pin_6,HIGH);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_4)==LOW){gate_2++;i++;}
+digitalWrite(pin_6,LOW);
+ digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_4)==LOW){gate_2++;i++;}
+digitalWrite(pin_6,LOW);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_4)==HIGH ){gate_2++;i++;}
+if(ifnor&&(gate_2>2)){lcd.print("NOR gate 2-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifnor){lcd.print("NOR gate 2-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifnor){lcd.print("NOR gate 2-not WORKING");delay(1000);lcd.clear();}}
 
 
 //............NOR GATE THREE..............
 
- digitalWrite(pin8,HIGH);
- digitalWrite(pin7,HIGH);
-if(digitalRead(pin6)==LOW){gate_3++;i++;}
- digitalWrite(pin8,HIGH);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin6)==LOW){gate_3++;i++;}
- digitalWrite(pin8,LOW);
- digitalWrite(pin7,HIGH);
-if(digitalRead(pin6)==LOW){gate_3++;i++;}
- digitalWrite(pin8,LOW);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin6)==HIGH && (gate_3>2))
-{ i++;if(ifnor){lcd.print("NOR gate 3-WORKING");delay(2000);lcd.clear();}}
+ digitalWrite(pin_10,HIGH);
+ digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_12)==LOW){gate_3++;i++;}
+ digitalWrite(pin_10,HIGH);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_12)==LOW){gate_3++;i++;}
+ digitalWrite(pin_10,LOW);
+ digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_12)==LOW){gate_3++;i++;}
+ digitalWrite(pin_10,LOW);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_12)==HIGH ){gate_3++;i++;}
+if(ifnor&&(gate_3>2)){lcd.print("NOR gate 3-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifnor){lcd.print("NOR gate 3-not WORKING");delay(2000);lcd.clear();}}
+{ if(ifnor){lcd.print("NOR gate 3-not WORKING");delay(1000);lcd.clear();}}
 
 //...................NOR GATE 4.............
-digitalWrite(pin11,HIGH);
- digitalWrite(pin10,HIGH);
-if(digitalRead(pin9)==LOW){gate_4++;i++;}
- digitalWrite(pin11,HIGH);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin9)==LOW){gate_4++;i++;}
-digitalWrite(pin11,LOW);
-digitalWrite(pin10,HIGH);
-if(digitalRead(pin9)==LOW){gate_4++;i++;}
-digitalWrite(pin11,LOW);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin9)==HIGH && (gate_4>2)){
-i++; if(ifnor){lcd.print("NOR gate 4-WORKING");delay(2000);lcd.clear();}}
+digitalWrite(pin_13,HIGH);
+ digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_15)==LOW){gate_4++;i++;}
+ digitalWrite(pin_13,HIGH);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_15)==LOW){gate_4++;i++;}
+digitalWrite(pin_13,LOW);
+digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_15)==LOW){gate_4++;i++;}
+digitalWrite(pin_13,LOW);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_15)==HIGH ){gate_4++;i++;}
+if(ifnor&&(gate_4>2)){lcd.print("NOR gate 4-WORKING");delay(1000);lcd.clear();}
 else 
-{ if(ifnor){lcd.print("NOR gate 4-not WORKING");delay(2000);lcd.clear();}}
-if(i>=11){chknor=1;}
-else if (i<10){chknor=0;}
+{ if(ifnor){lcd.print("NOR gate 4-not WORKING");delay(1000);lcd.clear();}}
+if((i>=4)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chknor=1;}
+else if (i<3){chknor=0;}
 }
 
 
 // .................not GATE 1................
 
 bool notfunc (int ifnot){
-  pinMode(pin0,OUTPUT);
-pinMode(pin1,INPUT);
-pinMode(pin2,OUTPUT);
-pinMode(pin3,INPUT);
-pinMode(pin4,OUTPUT);
-pinMode(pin5,INPUT);
-pinMode(pin6,OUTPUT);
-pinMode(pin7,INPUT);
-pinMode(pin8,OUTPUT);
-pinMode(pin9,INPUT);
-pinMode(pin10,OUTPUT);
-pinMode(pin11,INPUT);
+  pinMode(pin_1,OUTPUT);
+pinMode(pin_2,INPUT);
+pinMode(pin_3,OUTPUT);
+pinMode(pin_4,INPUT);
+pinMode(pin_5,OUTPUT);
+pinMode(pin_6,INPUT);
+pinMode(pin_12,OUTPUT);
+pinMode(pin_11,INPUT);
+pinMode(pin_10,OUTPUT);
+pinMode(pin_15,INPUT);
+pinMode(pin_14,OUTPUT);
+pinMode(pin_13,INPUT);
 //lcd.print("matching with not");
 //delay(1000);
 //lcd.clear();
@@ -504,99 +504,104 @@ int gate_4=0;
 int gate_5=0;
 int gate_6=0;
 //..........gate 1 for not......................................................
-digitalWrite(pin0,HIGH);
-if(digitalRead(pin1)==LOW){gate_1++;i++;}
- digitalWrite(pin0,LOW);
-if(digitalRead(pin1)==HIGH && (gate_1==1))
-{i++; if(ifnot){lcd.print("not gate 1 WORKING");delay(1000);lcd.clear();}}
+digitalWrite(pin_1,HIGH);
+if(digitalRead(pin_2)==LOW){gate_1++;i++;}
+ digitalWrite(pin_1,LOW);
+if(digitalRead(pin_2)==HIGH){gate_1++;i++;}
+if(ifnot&&(gate_1>1)){lcd.print("not gate 1 WORKING");delay(1000);lcd.clear();}
 else 
-{i++;if(ifnot){lcd.print("not gate 1 not WORKING");delay(2000);lcd.clear();}}
+{if(ifnot){lcd.print("not gate 1 not WORKING");delay(1000);lcd.clear();}}
 //..........gate 2 for not......................................................
-digitalWrite(pin2,HIGH);
-if(digitalRead(pin3)==LOW){gate_2++;i++;}
- digitalWrite(pin2,LOW);
-if(digitalRead(pin3)==HIGH && (gate_2==1))
-{i++; if(ifnot){lcd.print("not gate 2 WORKING");delay(1000);lcd.clear();}}
+digitalWrite(pin_3,HIGH);
+if(digitalRead(pin_4)==LOW){gate_2++;i++;}
+ digitalWrite(pin_3,LOW);
+if(digitalRead(pin_4)==HIGH){gate_2++;i++;}
+if(ifnot&&(gate_2>1)){lcd.print("not gate 2 WORKING");delay(1000);lcd.clear();}
 else 
-{i++;if(ifnot){lcd.print("not gate 2 not WORKING");delay(2000);lcd.clear();}}
+{if(ifnot){lcd.print("not gate 2 not WORKING");delay(1000);lcd.clear();}}
 //..........gate 3 for not......................................................
-digitalWrite(pin4,HIGH);
-if(digitalRead(pin5)==LOW){gate_3++;i++;}
- digitalWrite(pin4,LOW);
-if(digitalRead(pin5)==HIGH && (gate_3==1))
-{i++; if(ifnot){lcd.print("not gate 3 WORKING");delay(1000);lcd.clear();}}
+digitalWrite(pin_5,HIGH);
+if(digitalRead(pin_6)==LOW){gate_3++;i++;}
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_6)==HIGH){gate_3++;i++;}
+if(ifnot&&(gate_3>1)){lcd.print("not gate 3 WORKING");delay(1000);lcd.clear();}
 else 
-{i++;if(ifnot){lcd.print("not gate 3 not WORKING");delay(2000);lcd.clear();}}
+{if(ifnot){lcd.print("not gate 3 not WORKING");delay(1000);lcd.clear();}}
 //..........gate 4 for not......................................................
-digitalWrite(pin6,HIGH);
-if(digitalRead(pin7)==LOW){gate_4++;i++;}
- digitalWrite(pin6,LOW);
-if(digitalRead(pin7)==HIGH && (gate_4==1))
-{i++; if(ifnot){lcd.print("not gate 4 WORKING");delay(1000);lcd.clear();}}
+digitalWrite(pin_12,HIGH);
+if(digitalRead(pin_11)==LOW){gate_4++;i++;}
+ digitalWrite(pin_12,LOW);
+if(digitalRead(pin_11)==HIGH ){gate_4++;i++;}
+ if(ifnot&&(gate_4>1)){lcd.print("not gate 4 WORKING");delay(1000);lcd.clear();}
 else 
-{i++;if(ifnot){lcd.print("not gate 4 not WORKING");delay(2000);lcd.clear();}}
+{if(ifnot){lcd.print("not gate 4 not WORKING");delay(1000);lcd.clear();}}
 //..........gate 5 for not......................................................
-digitalWrite(pin8,HIGH);
-if(digitalRead(pin9)==LOW){gate_5++;i++;}
- digitalWrite(pin8,LOW);
-if(digitalRead(pin9)==HIGH && (gate_5==1))
-{i++; if(ifnot){lcd.print("not gate 5 WORKING");delay(1000);lcd.clear();}}
+digitalWrite(pin_10,HIGH);
+if(digitalRead(pin_15)==LOW){gate_5++;i++;}
+ digitalWrite(pin_10,LOW);
+if(digitalRead(pin_15)==HIGH ){gate_5++;i++;}
+if(ifnot&&(gate_5>1)){lcd.print("not gate 5 WORKING");delay(1000);lcd.clear();}
 else 
-{i++;if(ifnot){lcd.print("not gate 5 not WORKING");delay(2000);lcd.clear();}}
+{if(ifnot){lcd.print("not gate 5 not WORKING");delay(1000);lcd.clear();}}
 //..........gate 6 for not......................................................
-digitalWrite(pin10,HIGH);
-if(digitalRead(pin11)==LOW){gate_6++;i++;}
- digitalWrite(pin10,LOW);
-if(digitalRead(pin11)==HIGH && (gate_6==1))
-{i++; if(ifnot){lcd.print("not gate 6 WORKING");delay(1000);lcd.clear();}}
+digitalWrite(pin_14,HIGH);
+if(digitalRead(pin_13)==LOW){gate_6++;i++;}
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_13)==HIGH){gate_6++;i++;}
+if(ifnot&&(gate_6>1)){lcd.print("not gate 6 WORKING");delay(1000);lcd.clear();}
 else 
-{i++;if(ifnot){lcd.print("not gate 6 not WORKING");delay(2000);lcd.clear();}}
-if(i>=7){chknot=1;}
-else if (i<6){chknot=0;}}
+{if(ifnot){lcd.print("not gate 6 not WORKING");delay(1000);lcd.clear();}}
+if((i>=4)&&(gate_1==2||gate_2==2||gate_3==2||gate_4==2||gate_5==2||gate_6==2)){chknot=1;}
+else if (i<3){chknot=0;}}
 
 void setup() {
 
 
-pinMode(pin0,OUTPUT);
-pinMode(pin1,OUTPUT);
-pinMode(pin2,INPUT);
-pinMode(pin3,OUTPUT);
-pinMode(pin4,OUTPUT);
-pinMode(pin5,INPUT);
-pinMode(pin6,OUTPUT);
-pinMode(pin7,OUTPUT);
-pinMode(pin8,INPUT);
-pinMode(pin9,OUTPUT);
-pinMode(pin10,OUTPUT);
-pinMode(pin11,INPUT);
 
-pinMode(pin12,OUTPUT);//VCC48
-pinMode(pin13,OUTPUT);//VCC46
-digitalWrite(pin12,LOW);//GND
-digitalWrite(pin13,HIGH);//VCC
+}
+void loop() {
 
-pinMode(pin16,OUTPUT);
-pinMode(pin17,OUTPUT);
-pinMode(pin18,OUTPUT);
-digitalWrite(pin16,HIGH);//LCD-VCC
-digitalWrite(pin17,HIGH);//LCD-BL
-digitalWrite(pin18,LOW);//LCD-GND
+
+pinMode(pin_1,OUTPUT);
+pinMode(pin_2,OUTPUT);
+pinMode(pin_3,INPUT);
+pinMode(pin_4,OUTPUT);
+pinMode(pin_5,OUTPUT);
+pinMode(pin_6,INPUT);
+pinMode(pin_12,OUTPUT);
+pinMode(pin_11,OUTPUT);
+pinMode(pin_10,INPUT);
+pinMode(pin_15,OUTPUT);
+pinMode(pin_14,OUTPUT);
+pinMode(pin_13,INPUT);
+
+pinMode(pin_7,OUTPUT);//VCC48
+pinMode(pin_16,OUTPUT);//VCC46
+digitalWrite(pin_7,LOW);//GND
+digitalWrite(pin_16,HIGH);//VCC
+
+pinMode(pin_lcd1,OUTPUT);
+pinMode(pin_lcd2,OUTPUT);
+pinMode(pin_lcd3,OUTPUT);
+digitalWrite(pin_lcd1,HIGH);//LCD-VCC
+digitalWrite(pin_lcd2,HIGH);//LCD-BL
+digitalWrite(pin_lcd3,LOW);//LCD-GND
 
 
 //restricting nand to not execute during xor ic
 int resnand=0;
-digitalWrite(pin0,LOW);
- digitalWrite(pin1,LOW);
-if(digitalRead(pin2)==LOW){resnand++;}
-digitalWrite(pin3,LOW);
- digitalWrite(pin4,LOW);
-if(digitalRead(pin5)==LOW){resnand++;}
-digitalWrite(pin6,LOW);
- digitalWrite(pin7,LOW);
-if(digitalRead(pin8)==LOW){resnand++;}
-digitalWrite(pin9,LOW);
- digitalWrite(pin10,LOW);
-if(digitalRead(pin11)==LOW){resnand++;}
+digitalWrite(pin_1,LOW);
+ digitalWrite(pin_2,LOW);
+if(digitalRead(pin_3)==LOW){resnand++;}
+digitalWrite(pin_4,LOW);
+ digitalWrite(pin_5,LOW);
+if(digitalRead(pin_6)==LOW){resnand++;}
+digitalWrite(pin_12,LOW);
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_10)==LOW){resnand++;}
+digitalWrite(pin_15,LOW);
+ digitalWrite(pin_14,LOW);
+if(digitalRead(pin_13)==LOW){resnand++;}
 if(resnand<2)
 {
 int ifnand=0;
@@ -630,11 +635,6 @@ notfunc(ifnot);
 if(chknot){notfunc(1);}
 }
 }
-
-
-}
-void loop() {
-
 
 
 
