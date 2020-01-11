@@ -20,3 +20,6 @@ you will need 24 male to female connecting wires
 MOST IMPORTANT is that the simulator that i am using is PROTEUS PRODESSIONAL 8 and i sugest you as well
 you can directly give the nokia lcd ground or vcc from arduino or just like me from pin giving high and low signal for vcc and ground respectively
 You can mail me if any problem occur 
+given .ino if the arduino file 
+above .pdsprj is the protues file
+above .hex file is use for the arduino in proteus 
