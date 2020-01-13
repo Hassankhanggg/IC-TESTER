@@ -21,6 +21,15 @@ const int pin_lcd1 = A10;// lcd        16
 const int pin_lcd2 = A9;// lcd         17
 const int pin_lcd3 = A8;// lcd         18
 
+// include the library code:
+#include <LiquidCrystal.h>
+int contrast = 75;
+// initialize the library by associating any needed LCD interface pin
+// with the arduino pin number it is connected to
+const int rs = 49, en = 45, d4 = 35, d5 = 33, d6 = 31, d7 = 29;
+//LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+
 nokia_lcd my(A15, A14, A13, A12, A11);   //lcd decleration (rst, ce, dc, din, clk)
 Nokia_5110 lcd = Nokia_5110(A15, A14, A13, A12, A11);//sck-clk9 mosi-din8 dc10 cs12 rst=11
 int chknand =0;
@@ -29,6 +38,7 @@ int chkxor =0;
 int chkand =0;
 int chknor =0;
 int chknot =0;
+int chkdecod=0;
 
 
 // .................NAND GATE 1................
@@ -111,8 +121,8 @@ if(digitalRead(pin_13)==HIGH ){gate_4++;i++;}
 if(ifnand&&(gate_4>3)){lcd.print("nand gate 4-WORKING");delay(1000);lcd.clear();}
 else 
 { if(ifnand){lcd.print("NAND gate 4-not WORKING");delay(1000);lcd.clear();}}
-if((i>7)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chknand=1;}
-else if (i<6){chknand=0;}
+if((i>=8)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chknand=1;}
+else if (i<8){chknand=0;}
 }
 
 // .................or GATE ................
@@ -185,7 +195,7 @@ pinMode(pin_10,INPUT);
  digitalWrite(pin_12,LOW);
  digitalWrite(pin_11,LOW);
 if(digitalRead(pin_10)==LOW ){gate_3++;i++;}
-;if(ifor&&(gate_3>3)){lcd.print("OR gate 3-WORKING");delay(1000);lcd.clear();}
+;if(ifor&&(gate_3>2)){lcd.print("OR gate 3-WORKING");delay(1000);lcd.clear();}
 else 
 { if(ifor){lcd.print("OR gate 3-not WORKING");delay(1000);lcd.clear();}}
 
@@ -205,11 +215,11 @@ pinMode(pin_13,INPUT);
 digitalWrite(pin_15,LOW);
  digitalWrite(pin_14,LOW);
 if(digitalRead(pin_13)==LOW ){gate_4++;i++;}
-if(ifor&&(gate_4>3)){lcd.print("OR gate 4-WORKING");delay(1000);lcd.clear();}
+if(ifor&&(gate_4>2)){lcd.print("OR gate 4-WORKING");delay(1000);lcd.clear();}
 else 
 { if(ifor){lcd.print("OR gate 4-not WORKING");delay(1000);lcd.clear();}}
-if((i>3)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chkor=1;}
-else if (i<=2){chkor=0;}
+if((i>=8)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chkor=1;}
+else if (i<8){chkor=0;}
 }
 
 // .................AND GATE 1................
@@ -293,8 +303,8 @@ if(digitalRead(pin_13)==LOW){gate_4++;i++;}
 if(ifand&&(gate_4>3)){lcd.print("and gate 4-WORKING");delay(1000);lcd.clear();}
 else 
 { if(ifand){lcd.print("AND gate 4-not WORKING");delay(1000);lcd.clear();}}
-if((i>=4)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chkand=1;}
-else if (i<3){chkand=0;}
+if((i>=8)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chkand=1;}
+else if (i<8){chkand=0;}
 }
 
 
@@ -379,7 +389,7 @@ if(ifxor&&(gate_4>2)){lcd.print("XOR gate 4-WORKING");delay(1000);lcd.clear();}
 else 
 { if(ifxor){lcd.print("XOR gate 4-not WORKING");delay(1000);lcd.clear();}}
 if((i>=8)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chkxor=1;}
-else if (i<7){chkxor=0;}
+else if (i<8){chkxor=0;}
 }
 
 
@@ -473,8 +483,8 @@ if(digitalRead(pin_15)==HIGH ){gate_4++;i++;}
 if(ifnor&&(gate_4>2)){lcd.print("NOR gate 4-WORKING");delay(1000);lcd.clear();}
 else 
 { if(ifnor){lcd.print("NOR gate 4-not WORKING");delay(1000);lcd.clear();}}
-if((i>=4)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chknor=1;}
-else if (i<3){chknor=0;}
+if((i>=8)&&(gate_1==4||gate_2==4||gate_3==4||gate_4==4)){chknor=1;}
+else if (i<8){chknor=0;}
 }
 
 
@@ -528,40 +538,146 @@ if(ifnot&&(gate_3>1)){lcd.print("not gate 3 WORKING");delay(1000);lcd.clear();}
 else 
 {if(ifnot){lcd.print("not gate 3 not WORKING");delay(1000);lcd.clear();}}
 //..........gate 4 for not......................................................
-digitalWrite(pin_12,HIGH);
-if(digitalRead(pin_11)==LOW){gate_4++;i++;}
- digitalWrite(pin_12,LOW);
-if(digitalRead(pin_11)==HIGH ){gate_4++;i++;}
- if(ifnot&&(gate_4>1)){lcd.print("not gate 4 WORKING");delay(1000);lcd.clear();}
+digitalWrite(pin_11,HIGH);
+if(digitalRead(pin_10)==LOW){gate_4++;i++;}
+ digitalWrite(pin_11,LOW);
+if(digitalRead(pin_10)==HIGH ){gate_4++;i++;}
+ if(ifnot&&(gate_4>=1)){lcd.print("not gate 4 WORKING");delay(1000);lcd.clear();}
 else 
 {if(ifnot){lcd.print("not gate 4 not WORKING");delay(1000);lcd.clear();}}
 //..........gate 5 for not......................................................
-digitalWrite(pin_10,HIGH);
-if(digitalRead(pin_15)==LOW){gate_5++;i++;}
- digitalWrite(pin_10,LOW);
-if(digitalRead(pin_15)==HIGH ){gate_5++;i++;}
-if(ifnot&&(gate_5>1)){lcd.print("not gate 5 WORKING");delay(1000);lcd.clear();}
+digitalWrite(pin_13,HIGH);
+if(digitalRead(pin_12)==LOW){gate_5++;i++;}
+ digitalWrite(pin_13,LOW);
+if(digitalRead(pin_12)==HIGH ){gate_5++;i++;}
+if(ifnot&&(gate_5>=1)){lcd.print("not gate 5 WORKING");delay(1000);lcd.clear();}
 else 
 {if(ifnot){lcd.print("not gate 5 not WORKING");delay(1000);lcd.clear();}}
 //..........gate 6 for not......................................................
-digitalWrite(pin_14,HIGH);
-if(digitalRead(pin_13)==LOW){gate_6++;i++;}
- digitalWrite(pin_14,LOW);
-if(digitalRead(pin_13)==HIGH){gate_6++;i++;}
-if(ifnot&&(gate_6>1)){lcd.print("not gate 6 WORKING");delay(1000);lcd.clear();}
+digitalWrite(pin_15,HIGH);
+if(digitalRead(pin_14)==LOW){gate_6++;i++;}
+ digitalWrite(pin_15,LOW);
+if(digitalRead(pin_14)==HIGH){gate_6++;i++;}
+if(ifnot&&(gate_6>=1)){lcd.print("not gate 6 WORKING");delay(1000);lcd.clear();}
 else 
 {if(ifnot){lcd.print("not gate 6 not WORKING");delay(1000);lcd.clear();}}
-if((i>=4)&&(gate_1==2||gate_2==2||gate_3==2||gate_4==2||gate_5==2||gate_6==2)){chknot=1;}
-else if (i<3){chknot=0;}}
+if((i>=7)&&(gate_1==2||gate_2==2||gate_3==2||gate_4==2||gate_5==2||gate_6==2)){chknot=1;}
+else if (i<7){chknot=0;}}
+
+// .................DECODER 74139 GATE 1................
+bool decodfunc (int ifdecod){
+pinMode(pin_1,OUTPUT);//LOW Active enable
+digitalWrite(pin_1,LOW);
+pinMode(pin_2,OUTPUT);//switch 1
+pinMode(pin_3,OUTPUT);//switch 2
+pinMode(pin_4,INPUT);//data output a0 
+pinMode(pin_5,INPUT);//data out  a1
+pinMode(pin_6,INPUT);//data out a2
+pinMode(pin_7,INPUT);//data out a3
+pinMode(pin_8,OUTPUT);//gnd
+digitalWrite(pin_8,LOW);
+pinMode(pin_9,INPUT);//data out b3
+pinMode(pin_10,INPUT);//b2
+pinMode(pin_11,INPUT);//b1
+pinMode(pin_12,INPUT);//b0
+pinMode(pin_13,OUTPUT);//s1
+pinMode(pin_14,OUTPUT);//s0
+pinMode(pin_15,OUTPUT);// low enable gate b
+digitalWrite(pin_15,LOW);
+pinMode(pin_16,OUTPUT);//vcc
+digitalWrite(pin_16,HIGH);
+//lcd.print("matching with DECODER");delay(1000);lcd.clear();
+int i=0;
+int gate_1=0;
+int gate_2=0;
+//..........gate 1 for DECODER IC ......................................................
+pinMode(pin_1,OUTPUT);
+digitalWrite(pin_1,0); //enable low active
+
+digitalWrite(pin_2,HIGH);
+digitalWrite(pin_3,HIGH);
+if((digitalRead(pin_7)==HIGH)&&(digitalRead(pin_6)==HIGH)&&(digitalRead(pin_5)==HIGH)&&(digitalRead(pin_4)==LOW)){gate_1++;i++;}
+digitalWrite(pin_2,LOW);
+digitalWrite(pin_3,HIGH);
+if((digitalRead(pin_7)==HIGH)&&(digitalRead(pin_6)==LOW)&&(digitalRead(pin_5)==HIGH)&&(digitalRead(pin_4)==HIGH)){gate_1++;i++;}
+digitalWrite(pin_2,HIGH);
+digitalWrite(pin_3,LOW);
+if((digitalRead(pin_7)==HIGH)&&(digitalRead(pin_6)==HIGH)&&(digitalRead(pin_5)==LOW)&&(digitalRead(pin_4)==HIGH)){gate_1++;i++;}
+digitalWrite(pin_2,LOW);
+digitalWrite(pin_3,LOW);
+if((digitalRead(pin_7)==LOW)&&(digitalRead(pin_6)==HIGH)&&(digitalRead(pin_5)==HIGH)&&(digitalRead(pin_4)==HIGH)){gate_1++;i++;}
+if(ifdecod&&(gate_1>2)){lcd.print("DECODER gate 1 working");delay(1000);lcd.clear();}
+else 
+{ if(ifdecod){lcd.print("DECODER gate 1-not WORKING");delay(1000);lcd.clear();}}
+//..........gate 2 for DECODER IC ......................................................
+pinMode(pin_15,OUTPUT);
+digitalWrite(pin_15,0); //enable low active
+digitalWrite(pin_14,HIGH);
+digitalWrite(pin_13,HIGH);
+if((digitalRead(pin_9)==HIGH)&&(digitalRead(pin_10)==HIGH)&&(digitalRead(pin_11)==HIGH)&&(digitalRead(pin_12)==LOW)){gate_2++;i++;}
+digitalWrite(pin_14,LOW);
+digitalWrite(pin_13,HIGH);
+if((digitalRead(pin_9)==HIGH)&&(digitalRead(pin_10)==LOW)&&(digitalRead(pin_11)==HIGH)&&(digitalRead(pin_12)==HIGH)){gate_2++;i++;}
+digitalWrite(pin_14,HIGH);
+digitalWrite(pin_13,LOW);
+if((digitalRead(pin_9)==HIGH)&&(digitalRead(pin_10)==HIGH)&&(digitalRead(pin_11)==LOW)&&(digitalRead(pin_12)==HIGH)){gate_2++;i++;}
+digitalWrite(pin_14,LOW);
+digitalWrite(pin_13,LOW);
+if((digitalRead(pin_9)==LOW)&&(digitalRead(pin_10)==HIGH)&&(digitalRead(pin_11)==HIGH)&&(digitalRead(pin_12)==HIGH)){gate_2++;i++;}
+if(ifdecod&&(gate_2>2)){lcd.print("DECODER gate 2 working");delay(1000);lcd.clear();}
+else 
+{ if(ifdecod){lcd.print("DECODER gate 2 not WORKING");delay(1000);lcd.clear();}}
+
+if((i>=3)&&(gate_1==4||gate_2==4)){chkdecod=1;}
+else if (i<3){chkdecod=0;}
+}
+
 
 void setup() {
 
 
+chknand =0;
+chkor =0;
+chkxor =0;
+chkand =0;
+chknor =0;
+chknot =0;
+chkdecod=0;
+pinMode(53,OUTPUT);//VCC48
+digitalWrite(53,HIGH);
+
+pinMode(47,OUTPUT);//VCC48
+digitalWrite(47,LOW);
+
+analogWrite(51,contrast);
+
+pinMode(27,OUTPUT);//VCC48
+digitalWrite(27,HIGH);
+
+pinMode(25,OUTPUT);//VCC48
+digitalWrite(25,LOW);
+
+  // set up the LCD's number of columns and rows:
+//  lcd.begin(16, 2);
+  lcd.setCursor(0,0);
+  // Print a message to the LCD.
+  //lcd.print("hello, world!");
+  //delay(2000);
 
 }
 void loop() {
+lcd.setCursor(0,0);
+lcd.print("IC TESTER by ");delay(1000);
+lcd.setCursor(1,0);
+lcd.print("M.HASSAN & RAZZI");delay(1000);lcd.clear();
 
-
+chknand =0;
+chkor =0;
+chkxor =0;
+chkand =0;
+chknor =0;
+chknot =0;
+chkdecod=0;
 pinMode(pin_1,OUTPUT);
 pinMode(pin_2,OUTPUT);
 pinMode(pin_3,INPUT);
@@ -634,8 +750,18 @@ int ifnot=0;
 notfunc(ifnot);
 if(chknot){notfunc(1);}
 }
-}
 
+int ifdecod=0;
+decodfunc(ifdecod);
+if(chkdecod){decodfunc(1);}
+}
+chknand =0;
+chkor =0;
+chkxor =0;
+chkand =0;
+chknor =0;
+chknot =0;
+chkdecod=0;
 
 
 }
